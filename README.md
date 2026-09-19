@@ -47,4 +47,4 @@ See [RELEASE.md](RELEASE.md) for signing options and what to do before a public 
 - **Unsigned by default.** Windows shows a SmartScreen warning until a signing certificate is set up.
 - **Free third-party services.** The tunnel (Cloudflare quick tunnels) and the public room list (public MQTT servers) are free with no guarantee.
 - **Voice and camera** connect directly between people, and roughly 1 in 5 pairs may fail to connect on strict networks until a relay server exists.
-- **License:** not chosen yet.
+- **License:** [MIT](LICENSE).

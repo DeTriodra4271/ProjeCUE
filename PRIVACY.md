@@ -54,4 +54,4 @@ Cue is not directed at children. Public rooms can contain strangers.
 
 ## Contact
 
-Add the contact address of the person or organisation who publishes Cue here before release.
+Discord: mrfox42

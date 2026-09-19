@@ -4,6 +4,7 @@
   "description": "Cue: watch one video in sync with friends",
   "main": "main.js",
   "author": "DeTriodra",
+  "license": "MIT",
   "scripts": {
     "setup": "node scripts/fetch-cloudflared.js && node scripts/gen-notices.js",
     "start": "electron .",

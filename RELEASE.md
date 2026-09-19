@@ -15,7 +15,7 @@ Outputs: `Cue-Setup-<version>.exe` (installs for the current user, no admin prom
 
 1. **Sign the app.** See below. Unsigned builds show "Windows protected your PC" and antivirus often flags unknown exes that bundle a tunnel program.
 2. **Fill in the contact line** at the bottom of `PRIVACY.md` and host that text on a page you control.
-3. **Decide Cue's own license** and add a `LICENSE` file. The dependencies are all permissive (MIT, BSD, ISC, 0BSD); nothing forces a choice on you.
+3. ~~Decide Cue's own license~~ Done: MIT (see `LICENSE`). The dependencies are all permissive (MIT, BSD, ISC, 0BSD).
 4. **Test on a clean Windows PC** (a fresh user account or a VM): install, host, join from another network, quit, uninstall.
 5. Publish the SHA256 sums with the download so people can verify it.
 
