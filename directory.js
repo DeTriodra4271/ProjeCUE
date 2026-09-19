@@ -9,7 +9,7 @@ const BROKERS = [
     'wss://broker.emqx.io:8084/mqtt',
     'wss://test.mosquitto.org:8081'
 ];
-const PREFIX = 'projesun/v1/hosts/';
+const PREFIX = 'cue/v1/hosts/';
 const SERVER_RE = /^[a-z0-9]+(-[a-z0-9]+)+$/;   // sadece trycloudflare tunel kodu (rastgele adrese baglanmayi engeller)
 const ID_RE = /^[A-Z2-9]{6}$/;
 

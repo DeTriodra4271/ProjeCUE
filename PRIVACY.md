@@ -9,7 +9,7 @@ Cue is a Windows app for watching one video in sync with friends. This page says
 
 ## What is stored on your PC
 
-Your nickname, language, accent color, the last room name and description you typed, whether you accepted the voice and camera notices, and the volume you set for each person (by nickname) are stored locally by the app. Nothing else is saved. Uninstalling Cue does not delete them. To remove them, delete the `ProjeSun` folder inside `%APPDATA%` (that is Cue's internal name).
+Your nickname, language, accent color, the last room name and description you typed, whether you accepted the voice and camera notices, and the volume you set for each person (by nickname) are stored locally by the app. Nothing else is saved. Uninstalling Cue does not delete them. To remove them, delete the `cue` folder inside `%APPDATA%`.
 
 ## Rooms, chat and sync
 

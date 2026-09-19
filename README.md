@@ -29,7 +29,7 @@ npm run release            # installer + portable exe in release/  (unsigned is 
 npm run release:signed     # same, but fails unless every exe is validly signed
 ```
 
-See [RELEASE.md](RELEASE.md) for signing options and what to do before a public release.
+Signing is configured through environment variables; see the top of `scripts/release.js` and `electron-builder.js`.
 
 ## Project layout
 

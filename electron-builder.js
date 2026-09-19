@@ -1,4 +1,4 @@
-// Cue yayin (build) ayarlari. Imzalama yollari icin RELEASE.md'ye bak.
+// Cue yayin (build) ayarlari. Imzalama bilgileri asagidaki env degiskenlerinden okunur.
 //
 // Imza ortam degiskenleriyle secilir (dosyaya gizli bilgi YAZILMAZ):
 //   1) Azure Artifact Signing (eski adi Trusted Signing):
@@ -30,7 +30,7 @@ if (env.CUE_AZURE_ENDPOINT && env.CUE_AZURE_ACCOUNT && env.CUE_AZURE_PROFILE && 
 }
 
 module.exports = {
-    appId: 'com.projesun.app',          // (icsel kimlik: degistirme; kayitli ayarlar ve eski istemciler bunlara baglidir)
+    appId: 'com.cue.app',
     productName: 'Cue',
     copyright: 'Cue',
     compression: 'maximum',

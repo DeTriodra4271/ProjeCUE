@@ -24,7 +24,7 @@ const EMOJI = ['😀','😂','🤣','😃','😄','😅','😆','😉','😊','�
 
 // ---- Kalici ayarlar -----------------------------------------------------
 const settings = (() => {
-    const KEY = 'projesun.settings';
+    const KEY = 'cue.settings';
     let data = {};
     try { data = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { data = {}; }
     return {

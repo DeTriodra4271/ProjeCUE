@@ -16,7 +16,7 @@ const mode = env.CUE_AZURE_ENDPOINT && env.CUE_AZURE_ACCOUNT && env.CUE_AZURE_PR
     : env.CUE_SIGN_SCRIPT ? 'custom sign script (cloud HSM / provider tool)'
     : env.CSC_LINK ? 'PFX certificate'
     : null;
-log(mode ? `Signing: ${mode}` : 'Signing: NONE. This build will be UNSIGNED (Windows SmartScreen will warn users). See RELEASE.md.');
+log(mode ? `Signing: ${mode}` : 'Signing: NONE. This build will be UNSIGNED (Windows SmartScreen will warn users).');
 if (!mode && requireSigned) { console.error('\nrelease:signed needs a signing method configured. Aborting.'); process.exit(1); }
 
 const cleanEnv = { ...env };
