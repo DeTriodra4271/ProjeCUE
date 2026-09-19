@@ -1,0 +1,24 @@
+{
+  "name": "ProjeSun",
+  "version": "2.0.0",
+  "description": "Cue: watch one video in sync with friends",
+  "main": "main.js",
+  "author": "DeTriodra",
+  "scripts": {
+    "setup": "node scripts/fetch-cloudflared.js && node scripts/gen-notices.js",
+    "start": "electron .",
+    "notices": "node scripts/gen-notices.js",
+    "dist:dir": "electron-builder --config electron-builder.js --win --dir",
+    "release": "node scripts/release.js",
+    "release:signed": "node scripts/release.js --require-signed"
+  },
+  "dependencies": {
+    "mqtt": "^5.16.0",
+    "socket.io": "^4.7.2",
+    "socket.io-client": "^4.7.2"
+  },
+  "devDependencies": {
+    "electron": "^44.4.3",
+    "electron-builder": "^26.15.3"
+  }
+}

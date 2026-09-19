@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src http: https: ws: wss:">
+    <title>Cue</title>
+    <link rel="stylesheet" href="app.css">
+</head>
+<body data-screen="setup">
+
+<!-- Icon set: one 24px grid, 1.75 stroke, round caps -->
+<svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false">
+    <defs>
+        <symbol id="i-back" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol>
+        <symbol id="i-exit" viewBox="0 0 24 24"><path d="M9 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h4M16 8l4 4-4 4M20 12H9"/></symbol>
+        <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></symbol>
+        <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+        <symbol id="i-smile" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8.5 14.5c.9 1.2 2 1.8 3.5 1.8s2.6-.6 3.5-1.8"/><path d="M9 10h.01M15 10h.01"/></symbol>
+        <symbol id="i-send" viewBox="0 0 24 24"><path d="M21 3L10 14M21 3l-6.5 18-3.5-7.5L3.5 10z"/></symbol>
+        <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
+        <symbol id="i-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.5h.01"/></symbol>
+        <symbol id="i-eye-off" viewBox="0 0 24 24"><path d="M3 3l18 18M10.6 10.6a2 2 0 0 0 2.8 2.8M9.9 5.1A9.6 9.6 0 0 1 12 5c5 0 8.5 4 9.5 7-.4 1.1-1.2 2.4-2.4 3.5M6.3 6.4C4.4 7.7 3 9.7 2.5 12c1 3 4.5 7 9.5 7 1.5 0 2.9-.4 4.1-1"/></symbol>
+        <symbol id="i-mute" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-4 3v-3H4z"/><path d="M3 3l18 18"/></symbol>
+        <symbol id="i-kick" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.6-3.4 3.2-5.5 6.5-5.5s5.9 2.1 6.5 5.5M17 9l5 5M22 9l-5 5"/></symbol>
+        <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M8.5 21h7"/></symbol>
+        <symbol id="i-mic-off" viewBox="0 0 24 24"><path d="M3 3l18 18"/><path d="M9 9v2a3 3 0 0 0 5.1 2.1M15 9.3V6a3 3 0 0 0-5.7-1.3"/><path d="M5 11a7 7 0 0 0 11.2 5.6M19 11a7 7 0 0 1-.6 2.8M12 18v3M8.5 21h7"/></symbol>
+        <symbol id="i-volume" viewBox="0 0 24 24"><path d="M11 5L6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></symbol>
+        <symbol id="i-cam" viewBox="0 0 24 24"><rect x="2.5" y="6" width="13" height="12" rx="2"/><path d="M15.5 10.5l6-3.5v10l-6-3.5"/></symbol>
+        <symbol id="i-cam-off" viewBox="0 0 24 24"><path d="M3 3l18 18"/><path d="M7 6h6.5a2 2 0 0 1 2 2v4.5M15.5 10.5l6-3.5v10l-4-2.3M4.6 6.6A2 2 0 0 0 2.5 8v8a2 2 0 0 0 2 2H14"/></symbol>
+        <symbol id="i-speaker-off" viewBox="0 0 24 24"><path d="M11 5L6 9H3v6h3l5 4z"/><path d="M15.5 9.5a4 4 0 0 1 0 5M3 3l18 18"/></symbol>
+        <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+        <symbol id="i-chevron" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+
+        <!-- Leader ring: crosshair, outer line, tick dial, inner line -->
+        <symbol id="ring" viewBox="0 0 600 600">
+            <line class="ring-cross" x1="10" y1="300" x2="590" y2="300"/>
+            <line class="ring-cross" x1="300" y1="10" x2="300" y2="590"/>
+            <circle class="ring-outer" cx="300" cy="300" r="288"/>
+            <circle class="ring-ticks" cx="300" cy="300" r="268" pathLength="120" stroke-dasharray="0.6 1.4"/>
+            <circle class="ring-inner" cx="300" cy="300" r="238"/>
+        </symbol>
+    </defs>
+</svg>
+
+<main id="app">
+
+    <!-- 1. First screen: the leader -->
+    <section id="screen-setup" class="screen frame" aria-labelledby="wordmark">
+        <div class="rail rail-l" aria-hidden="true"></div>
+        <div class="rail rail-r" aria-hidden="true"></div>
+
+        <div class="setup-grid">
+            <div class="leader-stage">
+                <svg class="ring-art" viewBox="0 0 600 600" aria-hidden="true"><use href="#ring"/></svg>
+                <div class="sweep-intro" aria-hidden="true"></div>
+                <div class="leader-copy">
+                    <h1 id="wordmark">Cue</h1>
+                </div>
+            </div>
+
+            <form id="setup-form" class="setup-form" novalidate autocomplete="off">
+                <div class="field">
+                    <label for="username" data-i18n="nameLabel">Takma ad</label>
+                    <input id="username" type="text" maxlength="24" spellcheck="false">
+                </div>
+
+                <button type="button" id="host-btn" class="action-primary">
+                    <span class="action-text">
+                        <span class="action-title" data-i18n="hostBtn">Oda kur</span>
+                        <span class="action-hint" data-i18n="hostHint">Odayı aç, kodu arkadaşlarına gönder.</span>
+                    </span>
+                    <svg class="icon icon-lg" aria-hidden="true"><use href="#i-arrow"/></svg>
+                </button>
+
+                <div class="field field-join">
+                    <label for="invite-input" data-i18n="joinLabel">Davet kodu</label>
+                    <div class="join-row">
+                        <input id="invite-input" type="text" spellcheck="false" data-i18n-placeholder="joinPh">
+                        <button type="button" id="join-btn" class="btn-ghost" data-i18n="joinBtn">Katıl</button>
+                    </div>
+                </div>
+
+                <button type="button" id="browse-btn" class="action-text-link">
+                    <span data-i18n="browseBtn">Herkese açık odalar</span>
+                    <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg>
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- 2. Host: create a room -->
+    <section id="screen-create" class="screen frame" hidden aria-labelledby="create-title">
+        <div class="rail rail-l" aria-hidden="true"></div>
+        <div class="rail rail-r" aria-hidden="true"></div>
+
+        <div class="page">
+            <header class="page-head">
+                <button type="button" id="create-back" class="btn-back">
+                    <svg class="icon" aria-hidden="true"><use href="#i-back"/></svg>
+                    <span data-i18n="back">Geri</span>
+                </button>
+                <h2 id="create-title" data-i18n="createTitle">Oda kur</h2>
+            </header>
+
+            <div class="create-grid">
+                <form id="create-form" novalidate autocomplete="off">
+                    <div class="field">
+                        <label for="room-name" data-i18n="roomNameLabel">Oda adı</label>
+                        <input id="room-name" type="text" maxlength="32" data-i18n-placeholder="roomNamePh">
+                    </div>
+                    <div class="field">
+                        <label for="room-desc" data-i18n="roomDescLabel">Açıklama</label>
+                        <input id="room-desc" type="text" maxlength="140" data-i18n-placeholder="roomDescPh">
+                    </div>
+
+                    <fieldset class="field vis">
+                        <legend data-i18n="visLabel">Kim girebilir?</legend>
+                        <div class="vis-grid">
+                        <label class="vis-opt">
+                            <input type="radio" name="vis" value="public" checked>
+                            <span class="vis-title" data-i18n="visPublic">Herkese açık</span>
+                            <span class="vis-hint" data-i18n="visPublicHint">Herkese açık odalar listesinde görünür.</span>
+                        </label>
+                        <label class="vis-opt">
+                            <input type="radio" name="vis" value="private">
+                            <span class="vis-title" data-i18n="visPrivate">Gizli</span>
+                            <span class="vis-hint" data-i18n="visPrivateHint">Sadece oda koduyla girilir.</span>
+                        </label>
+                    </div>
+                    </fieldset>
+
+                    <label class="calls-opt">
+                        <input type="checkbox" id="calls-check">
+                        <span class="calls-text">
+                            <span class="calls-title" data-i18n="callsLabel">Sesli sohbet</span>
+                            <span class="calls-hint" data-i18n="callsHint"></span>
+                        </span>
+                    </label>
+
+                    <button type="submit" id="create-btn" class="action-solid">
+                        <span data-i18n="createBtn">Odayı aç</span>
+                        <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg>
+                    </button>
+                </form>
+
+                <div id="server-zone" class="server-zone">
+                    <h3 data-i18n="serverCodeLabel">Sunucu kodun</h3>
+                    <div id="server-body"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Guest: public rooms -->
+    <section id="screen-browse" class="screen frame" hidden aria-labelledby="browse-title">
+        <div class="rail rail-l" aria-hidden="true"></div>
+        <div class="rail rail-r" aria-hidden="true"></div>
+
+        <div class="page">
+            <header class="page-head">
+                <button type="button" id="browse-back" class="btn-back">
+                    <svg class="icon" aria-hidden="true"><use href="#i-back"/></svg>
+                    <span data-i18n="back">Geri</span>
+                </button>
+                <h2 id="browse-title" data-i18n="browseTitle">Herkese açık odalar</h2>
+            </header>
+            <ul id="room-list" class="room-list"></ul>
+        </div>
+    </section>
+
+    <!-- 4. In the room -->
+    <section id="screen-room" class="screen room" hidden aria-label="Room">
+        <header class="room-bar">
+            <div class="room-id">
+                <h2 id="room-title"></h2>
+                <span id="role-tag" class="tag"></span>
+            </div>
+            <div class="sync" role="status">
+                <canvas id="sync-trace" width="112" height="28" aria-hidden="true"></canvas>
+                <span id="sync-label"></span>
+            </div>
+            <div class="room-actions">
+                <span class="timecode-wrap"><span class="tc-label" data-i18n="positionLabel">Konum</span><output id="timecode" class="timecode">00:00:00</output></span>
+                <button type="button" id="leave-btn" class="btn-icon" data-i18n-title="leaveTitle" data-i18n-aria="leaveTitle">
+                    <svg class="icon" aria-hidden="true"><use href="#i-exit"/></svg>
+                </button>
+            </div>
+        </header>
+
+        <div id="invite-strip" class="invite-strip" hidden></div>
+
+        <div class="room-body">
+            <div class="stage">
+                <form id="host-url-form" class="url-bar" hidden novalidate>
+                    <input id="video-url" type="text" spellcheck="false" data-i18n-placeholder="urlPh" data-i18n-aria="urlPh">
+                    <button type="submit" id="load-url-btn" class="btn-solid" data-i18n="urlOpen">Aç</button>
+                </form>
+                <div id="site-bar" class="site-bar" hidden><svg class="icon icon-sm" aria-hidden="true"><use href="#i-lock"/></svg><span id="site-host"></span></div>
+                <div class="video-wrap">
+                    <webview id="video-view" src="about:blank" partition="persist:video" webpreferences="autoplayPolicy=no-user-gesture-required" useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"></webview>
+                    <div id="stage-empty" class="stage-empty">
+                        <svg class="ring-art ring-small" viewBox="0 0 600 600" aria-hidden="true"><use href="#ring"/></svg>
+                        <p id="stage-empty-text"></p>
+                    </div>
+                </div>
+            </div>
+
+            <aside class="chat" aria-label="Chat">
+                <div class="presence">
+                    <span id="presence-count" class="presence-count"></span>
+                    <ul id="members" class="members"></ul>
+                </div>
+                <div id="voice-bar" class="voice-bar" hidden>
+                    <button type="button" id="voice-join" class="btn-voice">
+                        <svg class="icon" aria-hidden="true"><use href="#i-mic"/></svg>
+                        <span data-i18n="voiceJoin">Sese katıl</span>
+                    </button>
+                    <div id="voice-active" class="voice-active" hidden>
+                        <button type="button" id="voice-mute" class="btn-voice" aria-pressed="false">
+                            <svg class="icon" aria-hidden="true"><use id="voice-mute-icon" href="#i-mic"/></svg>
+                            <span id="voice-mute-label" data-i18n="voiceMute">Mikrofonu kapat</span>
+                        </button>
+                        <button type="button" id="cam-toggle" class="btn-voice" aria-pressed="false">
+                            <svg class="icon" aria-hidden="true"><use id="cam-toggle-icon" href="#i-cam"/></svg>
+                            <span id="cam-toggle-label" data-i18n="camStart">Kamera</span>
+                        </button>
+                        <button type="button" id="voice-leave" class="btn-voice" data-i18n="voiceLeave">Sesten çık</button>
+                    </div>
+                </div>
+                <div id="tiles" class="tiles" hidden></div>
+                <ol id="chat-messages" class="messages" aria-live="polite"></ol>
+                <div class="composer">
+                    <div id="emoji-panel" class="emoji-panel" hidden></div>
+                    <button type="button" id="emoji-btn" class="btn-icon" data-i18n-title="emojiTitle" data-i18n-aria="emojiTitle" aria-expanded="false">
+                        <svg class="icon" aria-hidden="true"><use href="#i-smile"/></svg>
+                    </button>
+                    <input id="chat-msg" type="text" maxlength="500" autocomplete="off" data-i18n-placeholder="chatPh" data-i18n-aria="chatPh">
+                    <button type="button" id="send-chat-btn" class="btn-icon btn-send" data-i18n-title="chatSend" data-i18n-aria="chatSend">
+                        <svg class="icon" aria-hidden="true"><use href="#i-send"/></svg>
+                    </button>
+                </div>
+            </aside>
+        </div>
+    </section>
+
+    <!-- The leader: shown while a room starts or a connection opens -->
+    <div id="leader" class="leader" hidden role="status" aria-live="polite">
+        <div class="leader-dial">
+            <svg class="ring-art" viewBox="0 0 600 600" aria-hidden="true"><use href="#ring"/></svg>
+            <div class="sweep" id="leader-sweep"></div>
+            <span id="leader-num" class="leader-num" aria-hidden="true">5</span>
+        </div>
+        <p id="leader-label" class="leader-label"></p>
+        <button type="button" id="leader-cancel" class="action-text-link" data-i18n="cancel">İptal</button>
+    </div>
+</main>
+
+<footer id="frame-foot" class="frame-foot">
+    <p class="credits"><span data-i18n="creditsLabel">Emeği geçenler</span> <span class="credit-names">Hermerus · Glorp · DeTriodra · Ramiro</span></p>
+    <div class="foot-tools">
+        <button type="button" id="about-btn" class="foot-link" data-i18n="aboutLink">Hakkında ve gizlilik</button>
+        <label class="select-wrap">
+            <span class="sr-only" data-i18n="langTitle">Dil</span>
+            <select class="lang-pick" id="lang-pick" data-i18n-title="langTitle"></select>
+            <svg class="icon icon-sm" aria-hidden="true"><use href="#i-chevron"/></svg>
+        </label>
+        <label class="swatch" data-i18n-title="signalTitle">
+            <span class="sr-only" data-i18n="signalTitle">Vurgu rengi</span>
+            <input type="color" id="signal-pick" value="#ff9d2e">
+        </label>
+    </div>
+</footer>
+
+<dialog id="voice-consent" class="about consent" aria-labelledby="voice-consent-title">
+    <div class="about-body">
+        <h2 id="voice-consent-title" class="consent-title" data-i18n="voiceConsentTitle">Sese katılmadan önce</h2>
+        <p class="consent-text" data-i18n="voiceConsentBody"></p>
+        <div class="about-actions">
+            <button type="button" id="voice-consent-cancel" class="action-text-link" data-i18n="voiceConsentCancel">Şimdi değil</button>
+            <button type="button" id="voice-consent-ok" class="btn-solid" data-i18n="voiceConsentOk">Sese katıl</button>
+        </div>
+    </div>
+</dialog>
+
+<dialog id="cam-consent" class="about consent" aria-labelledby="cam-consent-title">
+    <div class="about-body">
+        <h2 id="cam-consent-title" class="consent-title" data-i18n="camConsentTitle">Kamerayı açmadan önce</h2>
+        <p class="consent-text" data-i18n="camConsentBody"></p>
+        <div class="about-actions">
+            <button type="button" id="cam-consent-cancel" class="action-text-link" data-i18n="voiceConsentCancel">Şimdi değil</button>
+            <button type="button" id="cam-consent-ok" class="btn-solid" data-i18n="camConsentOk">Kamerayı aç</button>
+        </div>
+    </div>
+</dialog>
+
+<dialog id="about" class="about" aria-labelledby="about-title">
+    <div class="about-body">
+        <header class="about-head">
+            <h2 id="about-title" data-i18n="aboutTitle">Cue hakkında</h2>
+            <span id="about-version" class="about-version"></span>
+        </header>
+        <h3 data-i18n="privacyTitle">Gizlilik</h3>
+        <ul class="privacy-list">
+            <li data-i18n="privacy1"></li>
+            <li data-i18n="privacy2"></li>
+            <li data-i18n="privacy3"></li>
+            <li data-i18n="privacy4"></li>
+            <li data-i18n="privacy5"></li>
+            <li data-i18n="privacy6"></li>
+        </ul>
+        <div class="about-actions">
+            <button type="button" id="licenses-btn" class="action-text-link" data-i18n="licensesBtn">Açık kaynak lisansları</button>
+            <button type="button" id="about-close" class="btn-solid" data-i18n="closeBtn">Kapat</button>
+        </div>
+    </div>
+</dialog>
+
+<div id="status" class="status" role="alert" aria-live="assertive" hidden>
+    <svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg>
+    <span id="status-text"></span>
+</div>
+
+<script src="i18n.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
