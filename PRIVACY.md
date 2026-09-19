@@ -54,4 +54,5 @@ Cue is not directed at children. Public rooms can contain strangers.
 
 ## Contact
 
-Discord: mrfox42
+- Email: detriodra42@gmail.com
+- Discord: mrfox42
